@@ -88,19 +88,25 @@ plt.ylabel('Density')
 plt.title('Distribution of Filtered Theta Z')
 plt.show()  
 
-# size, theta = sample_fun()
-
-# passed_size = size_filter(size)
-# passed_orientation = orientation_filter(theta)
-
-# print(passed_size)
-# print(passed_orientation)
 
 
-# theta = [0, 1, 0]
-# print(theta)
+# %% High-dimensional data
 
-# print(np.exp(-np.abs(np.dot([1, 0, 0], theta))))
 
+def dim_norm(dim):
+    samples = np.random.normal(loc=0, scale=1, size=(100000, dim))
+    norms = np.linalg.norm(samples, axis=1)
+    return norms
+
+# %%
+
+for dim in [1, 16, 32, 256, 512, 1024]:
+    norms = dim_norm(dim)
+    print(f"norm: {np.mean(norms):.4f}, std: {np.std(norms):.4f}, dim: {dim}")
+    plt.hist(norms, bins=30, density=True)
+    plt.xlabel('Norm')
+    plt.ylabel('Density')
+    plt.title(f'Distribution of Norms in {dim}-Dimensional Space')
+    plt.show()
 
 # %%
